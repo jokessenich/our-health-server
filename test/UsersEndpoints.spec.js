@@ -13,25 +13,25 @@ describe.only('Users Endpoints', function(){
         app.set('db', db)
     })
     after('disconnect from db', ()=> db.destroy())
-    before('clean the table', () => db('remedies').truncate())
-    afterEach('cleanup', () => db('remedies').truncate())
+    before('clean the table', () => db.raw('TRUNCATE likes, remedies, maladies, users RESTART IDENTITY CASCADE'))
+    afterEach('clean the table', () => db.raw('TRUNCATE likes, remedies, maladies, users RESTART IDENTITY CASCADE'))
 
+    const testUsers = [
+        {
+            username: "me",
+            email: "ab",
+        userpassword: "cd" },
+        {
+            username: "you",
+            email:"cd",
+        userpassword: "ef" },
+        {
+            username: "they",
+            email: "gh",
+        userpassword: "ij" }
+    ]
 
     context('Given there are users in the database',()=>{
-        const testUsers = [
-            {
-                id:1,
-                email: "ab",
-            userpassword: "cd" },
-            {
-                id:2,
-                email:"cd",
-            userpassword: "ef" },
-            {
-                id:3,
-                email: "gh",
-            userpassword: "ij" }
-        ]
 
         this.beforeEach('insert users', ()=>{
             return db
@@ -39,13 +39,37 @@ describe.only('Users Endpoints', function(){
             .insert(testUsers)
         })
 
+
+
            it('GET /users/register responds with 200 and all of the users', () => {
                  return supertest(app)
                    .get('/users/register')
                    .expect(200)
                })
-            
-            it('')
+            })
+        
+
+
+           it('POST /users/register responds with 201 and logs in', () => {
+            return supertest(app)
+              .post('/users/register')
+              .send({
+                  username: "new",
+                  email: "newemail",
+                  userpassword: "one"
+              })
+              .expect(201)
+          })
+
+          it('POST /users/login responds with 201 and logs in', () => {
+            return supertest(app)
+              .post('/users/login')
+              .send({
+                  username: "they",
+                  userpassword: "ij"
+              })
+              .expect(200)
+          })
                
     })
-})
+

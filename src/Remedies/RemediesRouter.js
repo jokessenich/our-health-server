@@ -11,7 +11,11 @@ var jwt = require('jsonwebtoken');
 
 
 
-RemediesRouter.use('/:token', (req, res, next)=>{
+RemediesRouter.use('/add/:token', (req, res, next)=>{
+    AuthenticationService.VerifyToken(req, res, next)
+})
+
+RemediesRouter.use('/user/:token', (req, res, next)=>{
     AuthenticationService.VerifyToken(req, res, next)
 })
 
@@ -28,13 +32,14 @@ RemediesRouter
 
 
     RemediesRouter
-    .route('/:token')
+    .route('/add/:token')
     .post(bodyParser, (req, res, next) => {
 
         const remedy_name = req.body.remedy_name;
         const remedy_description = req.body.remedy_description;
         const remedy_reference = req.body.remedy_reference;
         const remedy_malady = req.body.remedy_malady;
+        const userid = req.user.id
 
         if (!remedy_name) {
             return res
@@ -61,7 +66,8 @@ RemediesRouter
             remedy_name,
             remedy_description,
             remedy_reference,
-            remedy_malady 
+            remedy_malady, 
+            userid
         };
 
         console.log(newRemedy)
@@ -77,7 +83,7 @@ RemediesRouter
     })
 
 RemediesRouter
-    .route('/:id')
+    .route('/remedy/:id')
     .all((req, res, next) => {
         RemediesService.getById(
             req.app.get('db'),
@@ -140,5 +146,27 @@ RemediesRouter
             })
             .catch(next)
     })
+
+    
+RemediesRouter
+    .route('/user/:token')
+    .get((req,res,next)=>{
+        RemediesService.getByUserId(
+        req.app.get('db'),
+        req.user.id
+    )
+        .then(remedies => {
+            if (!remedies) {
+                return res.status(404).json({
+                    error: { message: `no remedies found for this user.` }
+                })
+            }
+            res.json(remedies)
+            next()
+        })
+        .catch(next)
+
+    })
+    
 
 module.exports = RemediesRouter
