@@ -1,26 +1,16 @@
-# Express Boilerplate!
+# OurHealth App!
 
-This is a boilerplate project used for starting new projects!
+This is a web app that allows users to share alternative remedies with one another.
 
-## Set up
+## Link
 
-Complete the following steps to start a new project (NEW-PROJECT-NAME):
+https://our-health.johnnykessenich.now.sh/
 
-1. Clone this repository to your local machine `git clone BOILERPLATE-URL NEW-PROJECTS-NAME`
-2. `cd` into the cloned repository
-3. Make a fresh start of the git history for this project with `rm -rf .git && git init`
-4. Install the node dependencies `npm install`
-5. Move the example Environment file to `.env` that will be ignored by git and read by the express server `mv example.env .env`
-6. Edit the contents of the `package.json` to use NEW-PROJECT-NAME instead of `"name": "express-boilerplate",`
+## Summary
 
-## Scripts
+A user can search for an illness/malady in the home search bar or click the button to browse all maladies. The user may also register and login to give remedies a thumbs up/thumbs down.
 
-Start the application `npm start`
 
-Start nodemon for the application `npm run dev`
+## Technology used
 
-Run the tests `npm test`
-
-## Deploying
-
-When your new project is ready for deployment, add a new Heroku application with `heroku create`. This will make a new git remote called "heroku" and you can then `npm run deploy` which will push to this remote's master branch.
+The client side uses React with React Router, CSS3, ES6, jest. The API uses node, express, knex, mocha, chai and postgresSql.

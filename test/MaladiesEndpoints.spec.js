@@ -16,7 +16,7 @@ describe.only('Maladies Endpoints', function(){
     before('clean the table', () => db.raw('TRUNCATE likes, remedies, maladies, users RESTART IDENTITY CASCADE'))
     afterEach('clean the table', () => db.raw('TRUNCATE likes, remedies, maladies, users RESTART IDENTITY CASCADE'))
 
-
+        
         const testMaladies = [
             {
                 id:1,
@@ -87,20 +87,27 @@ describe.only('Maladies Endpoints', function(){
                })
             })
 
- 
+            context('Given there are maladies in the database',()=>{
+
+                beforeEach('insert maladies', ()=>{
+                    return db
+                    .into('maladies')
+                    .insert(testMaladies)
+                })
               it('DELETE /:id delete the correct malady', () => {
                   const idToRemove = 2;
                   const expectedResult = testMaladies.filter(maladies=> maladies.id!==2)
                 return supertest(app)
                   .delete(`/maladies/${idToRemove}`)
                   .expect(204)
-                  .then(res=>
+                  .then(res =>
                     supertest(app)
-                  .get('/maladies')
-                  .expect(expectedResult))
-                  
-              })
+                    .get(`/maladies`)
+                    .expect(expectedResult)
+              )
             })
+        })
+    })
           
         
 

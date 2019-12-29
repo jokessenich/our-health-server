@@ -99,7 +99,7 @@ LikesRouter
                 .catch(next)
         })
         
-        LikesRouter
+    LikesRouter
     .route('/:token/:id')
     .all((req, res, next) => {
         LikesService.getById(

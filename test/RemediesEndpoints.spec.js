@@ -113,7 +113,6 @@ describe.only('Test Remedies Endpoints', function(){
                     expect(res.body.id).to.eql(testRemedies[0].id)
                     expect(res.body.remedy_description).to.eql(testRemedies[0].remedy_description)
                     expect(res.body.remedy_name).to.eql(testRemedies[0].remedy_name)
-                    expect(res.body.remedy_malady).to.eql(testRemedies[0].remedy_malady)
 
                   })
               })
@@ -121,6 +120,20 @@ describe.only('Test Remedies Endpoints', function(){
             })
 
  
+            context('Given there are remedies in the database',()=>{
+                
+                beforeEach('insert maladies', ()=>{
+                    return db
+                    .into('maladies')
+                    .insert(testMaladies)
+                })
+
+                beforeEach('insert remedies', ()=>{
+                    return db
+                    .into('remedies')
+                    .insert(testRemedies)
+                })
+
               it('DELETE /:id delete the correct malady', () => {
                   const idToRemove = 2;
                   const expectedResult = testRemedies.filter(remedies=> remedies.id!==2)
@@ -134,7 +147,7 @@ describe.only('Test Remedies Endpoints', function(){
                   
               })
             })
-          
+        })
         
 
             

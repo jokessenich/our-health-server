@@ -78,6 +78,7 @@ UsersRouter
 
 .post(bodyParser, (req, res, next) => {
     //check if user exists
+
     UsersService.getByEmail(req.app.get('db'), req.body.email)
         .then(user => {
             if (user) {

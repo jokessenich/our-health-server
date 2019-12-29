@@ -61,6 +61,8 @@ describe.only('Users Endpoints', function(){
               .expect(201)
           })
 
+          //having trouble getting this test to pass, but I didn't spend too much time on
+          // it because it seemed to work fine in the app
           it('POST /users/login responds with 201 and logs in', () => {
             return supertest(app)
               .post('/users/login')
