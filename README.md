@@ -12,8 +12,20 @@ https://our-health.johnnykessenich.now.sh/
 github: https://github.com/jokessenich/our-health-server
 
 ## Screenshots
-
+Home screen
 ![Home screen on PC](/readmePics/home.png "Home Screen")
+
+Home Screen on Mobile Device
+![Home screen on phone](/readmePics/homePhone.png "Home Screen on Mobile Device")
+
+
+Browse Maladies Screen
+![Browse Maladies Screen](/readmePics/maladiesPhone.png "Browse Maladies Screen")
+
+Sample Malady Screen
+![Sample Malady Screen](/readmePics/anxietyPhone.png "Sample Malady Screen")
+
+
 
 
 ## Summary
