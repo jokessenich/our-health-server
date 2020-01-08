@@ -28,9 +28,7 @@ app.use((error, req, res, next) => {
   res.status(500).json(response)
 })
 
-app.get('/', (req, res)=> {
-    res.send('Hello, world!')
-})
+
 
 app.use('/users', UsersRouter)
 app.use('/remedies', RemediesRouter)

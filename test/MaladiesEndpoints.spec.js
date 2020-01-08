@@ -8,8 +8,7 @@ describe.only('Maladies Endpoints', function(){
     before ('make knex instance', ()=>{
         db = knex({
             client: 'pg',
-            connection: "postgresql://dunder_mifflin:a@localhost/our_health-test"
-        })
+            connection: "postgresql://dunder_mifflin:a@localhost/our-health-server-test"        })
         app.set('db', db)
     })
     after('disconnect from db', ()=> db.destroy())
@@ -22,8 +21,8 @@ describe.only('Maladies Endpoints', function(){
                 id:1,
                 malady_name: "lice",
                 malady_description: "bad bugs",
-            malady_symptoms: "itchy", 
-            userid : null 
+                malady_symptoms: "itchy", 
+                userid : null 
         },
             {
                 id:2,

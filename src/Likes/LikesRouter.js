@@ -120,10 +120,10 @@ LikesRouter
     })
     .get((req, res, next) => {
         res.json({
-            id: xss(res.like.id),
-            userid: xss(res.like.userid),
-            remedyid: xss(res.like.remedyid), // sanitize title
-            liked: xss(res.like.liked), // sanitize content
+            id: xss(res.like.id), // sanitize id
+            userid: xss(res.like.userid), // sanitize user id
+            remedyid: xss(res.like.remedyid), // sanitize remedy id
+            liked: xss(res.like.liked), // sanitize bool
         })
     })
 

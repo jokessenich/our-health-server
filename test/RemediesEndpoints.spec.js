@@ -8,7 +8,7 @@ describe.only('Test Remedies Endpoints', function(){
     before ('make knex instance', ()=>{
         db = knex({
             client: 'pg',
-            connection: "postgresql://dunder_mifflin:a@localhost/our_health-test"
+            connection: "postgresql://dunder_mifflin:a@localhost/our-health-server-test"
         })
         app.set('db', db)
     })
