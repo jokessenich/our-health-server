@@ -2,7 +2,7 @@ const { expect }= require('chai')
 const knex = require('knex')
 const app = require('../src/app')
 
-describe.only('Users Endpoints', function(){
+describe('Users Endpoints', function(){
     let db
 
     before ('make knex instance', ()=>{
@@ -68,8 +68,10 @@ describe.only('Users Endpoints', function(){
               .send({
                   username: "they",
                   userpassword: "ij"
+                  
               })
               .expect(200)
+              
           })
                
     })

@@ -2,7 +2,7 @@ const { expect }= require('chai')
 const knex = require('knex')
 const app = require('../src/app')
 
-describe.only('Test Remedies Endpoints', function(){
+describe('Test Remedies Endpoints', function(){
     let db
 
     before ('make knex instance', ()=>{

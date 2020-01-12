@@ -2,13 +2,13 @@ const { expect }= require('chai')
 const knex = require('knex')
 const app = require('../src/app')
 
-describe.only('Users Endpoints', function(){
+describe('Likes Endpoints', function(){
     let db
 
     before ('make knex instance', ()=>{
         db = knex({
             client: 'pg',
-            connection: "postgresql://dunder_mifflin:a@localhost/our-health-server-test"        })
+            connection: "postgresql://dunder_mifflin:a@localhost/our-health-server-test"})
         app.set('db', db)
     })
     after('disconnect from db', ()=> db.destroy())
@@ -105,13 +105,6 @@ describe.only('Users Endpoints', function(){
     },
     ]
 
-    const token = ()=>{
-                return db.post('/users/login')
-                    .send({
-                        username: "me",
-                        userpassword: "cd"
-                    })
-                }
 
     context('Given there are likes in the database',()=>{
 
@@ -139,9 +132,22 @@ describe.only('Users Endpoints', function(){
             .insert(testLikes)
         })
 
-
-
-
+        this.beforeEach('declare token', ()=>{
+            let token;
+           
+            supertest(app)
+            .post('/users/login')
+            .send({
+                
+              username: "me",
+              userpassword: "cd"
+                
+            })
+            .end(res=> {
+                token = JSON.stringify(res)
+                })
+            })
+        
 
            it('GET / responds with 200 and all of the likes', () => {
                  return supertest(app)
@@ -152,13 +158,13 @@ describe.only('Users Endpoints', function(){
         
             it('GET /likes/:token responds with the users likes', () => {
                 return supertest(app)
-                  .get(`/likes/${token}`)
+                  .get(`/likes/${this.token}`)
                   .expect(200)
               })
 
            it('POST /likes/:token creates a new like', () => {
             return supertest(app)
-              .post(`/likes/${token}`)
+              .post(`/likes/${this.token}`)
               .send({
                 userid: "3",
                 remedyid: "3",
@@ -169,7 +175,7 @@ describe.only('Users Endpoints', function(){
 
           it('GET /likes/:token/:id gets likes for user for the remedy', () => {
             return supertest(app)
-              .get(`/likes/${token}/1`)
+              .get(`/likes/${this.token}/1`)
               .expect(200)
           })
                
